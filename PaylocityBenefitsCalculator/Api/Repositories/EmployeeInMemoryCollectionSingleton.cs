@@ -1,24 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using Api.Dtos.Dependent;
-using Api.Dtos.Employee;
-using Api.Models;
-using Xunit;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Api.Models;
 
-namespace ApiTests.IntegrationTests;
-
-public class EmployeeIntegrationTests : IntegrationTest, IClassFixture<WebApplicationFactory<Program>>
+namespace Api.Repositories
 {
-    public EmployeeIntegrationTests(WebApplicationFactory<Program> factory) : base(factory) { }
-
-    [Fact]
-    public async Task WhenAskedForAllEmployees_ShouldReturnAllEmployees()
+    public class EmployeeInMemoryCollectionSingleton : IEmployeeInMemoryCollectionSingleton
     {
-        var response = await HttpClient.GetAsync("/api/v1/employees");
-        var employees = new List<GetEmployeeDto>
+        private List<Employee> employees = new List<Employee>
         {
             new()
             {
@@ -35,7 +21,7 @@ public class EmployeeIntegrationTests : IntegrationTest, IClassFixture<WebApplic
                 LastName = "Morant",
                 Salary = 92365.22m,
                 DateOfBirth = new DateTime(1999, 8, 10),
-                Dependents = new List<GetDependentDto>
+                Dependents = new List<Dependent>
                 {
                     new()
                     {
@@ -70,7 +56,7 @@ public class EmployeeIntegrationTests : IntegrationTest, IClassFixture<WebApplic
                 LastName = "Jordan",
                 Salary = 143211.12m,
                 DateOfBirth = new DateTime(1963, 2, 17),
-                Dependents = new List<GetDependentDto>
+                Dependents = new List<Dependent>
                 {
                     new()
                     {
@@ -83,29 +69,10 @@ public class EmployeeIntegrationTests : IntegrationTest, IClassFixture<WebApplic
                 }
             }
         };
-        await response.ShouldReturn(HttpStatusCode.OK, employees);
-    }
 
-    [Fact]
-    public async Task WhenAskedForAnEmployee_ShouldReturnCorrectEmployee()
-    {
-        var response = await HttpClient.GetAsync("/api/v1/employees/1");
-        var employee = new GetEmployeeDto
+        public List<Employee> Employees
         {
-            Id = 1,
-            FirstName = "LeBron",
-            LastName = "James",
-            Salary = 75420.99m,
-            DateOfBirth = new DateTime(1984, 12, 30)
-        };
-        await response.ShouldReturn(HttpStatusCode.OK, employee);
-    }
-    
-    [Fact]
-    public async Task WhenAskedForANonexistentEmployee_ShouldReturn404()
-    {
-        var response = await HttpClient.GetAsync($"/api/v1/employees/{int.MinValue}");
-        await response.ShouldReturn(HttpStatusCode.NotFound);
+            get { return employees; }
+        }
     }
 }
-

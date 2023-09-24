@@ -4,6 +4,7 @@ using Api.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<IEmployeeInMemoryCollectionSingleton, EmployeeInMemoryCollectionSingleton>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeInMemoryRepository>();
 
 builder.Services.AddControllers();
