@@ -14,7 +14,6 @@ public class DependentIntegrationTests : IntegrationTest, IClassFixture<WebAppli
     public DependentIntegrationTests(WebApplicationFactory<Program> factory) : base(factory) { }
 
     [Fact]
-    //task: make test pass
     public async Task WhenAskedForAllDependents_ShouldReturnAllDependents()
     {
         var response = await HttpClient.GetAsync("/api/v1/dependents");
@@ -57,7 +56,6 @@ public class DependentIntegrationTests : IntegrationTest, IClassFixture<WebAppli
     }
 
     [Fact]
-    //task: make test pass
     public async Task WhenAskedForADependent_ShouldReturnCorrectDependent()
     {
         var response = await HttpClient.GetAsync("/api/v1/dependents/1");
@@ -73,7 +71,6 @@ public class DependentIntegrationTests : IntegrationTest, IClassFixture<WebAppli
     }
 
     [Fact]
-    //task: make test pass
     public async Task WhenAskedForANonexistentDependent_ShouldReturn404()
     {
         var response = await HttpClient.GetAsync($"/api/v1/dependents/{int.MinValue}");
