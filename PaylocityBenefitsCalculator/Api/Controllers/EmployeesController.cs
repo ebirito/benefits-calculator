@@ -23,7 +23,17 @@ public class EmployeesController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<ApiResponse<GetEmployeeDto>>> Get(int id)
     {
-        throw new NotImplementedException();
+        var employee = this.employeeRepository.GetById(id);
+        if (employee == null)
+        {
+            return NotFound();
+        }
+
+        return new ApiResponse<GetEmployeeDto>
+        {
+            Data = GetEmployeeDto.FromEmployee(employee),
+            Success = true
+        };
     }
 
     [SwaggerOperation(Summary = "Get all employees")]
