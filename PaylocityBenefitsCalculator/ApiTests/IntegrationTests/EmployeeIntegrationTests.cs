@@ -107,5 +107,21 @@ public class EmployeeIntegrationTests : IntegrationTest, IClassFixture<WebApplic
         var response = await HttpClient.GetAsync($"/api/v1/employees/{int.MinValue}");
         await response.ShouldReturn(HttpStatusCode.NotFound);
     }
+
+    [Fact]
+    public async Task WhenAskedForAnEmployeePaycheck_ShouldCalculateAndReturnIt()
+    {
+        var response = await HttpClient.GetAsync("/api/v1/employees/1/paycheck?payDate=2023-09-24");
+        var expectedPaycheck = new Paycheck
+        {
+            PayDate = new DateTime(2023, 09, 24),
+            GrossAmount = 2900.81M,
+            BaseBenefitCost = 461.54M,
+            DependentsBenefitCost = 0,
+            LuxuryTax = 0,
+            OldPersonTax = 0
+        };
+        await response.ShouldReturn(HttpStatusCode.OK, expectedPaycheck);
+    }
 }
 

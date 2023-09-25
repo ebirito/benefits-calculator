@@ -4,6 +4,7 @@ using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Api.Repositories;
+using Api.Services;
 
 namespace Api.Controllers;
 
@@ -49,5 +50,22 @@ public class EmployeesController : ControllerBase
         };
 
         return result;
+    }
+
+    [SwaggerOperation(Summary = "Get paycheck for employee for a given pay date")]
+    [HttpGet("{id}/paycheck")]
+    public async Task<ActionResult<ApiResponse<Paycheck>>> GetPaycheck(int id, DateTime payDate)
+    {
+        var employee = this.employeeRepository.GetById(id);
+        if (employee == null)
+        {
+            return NotFound();
+        }
+
+        return new ApiResponse<Paycheck>
+        {
+            Data = PaycheckCalculator.CalculatePaycheck(employee, payDate),
+            Success = true
+        };
     }
 }
