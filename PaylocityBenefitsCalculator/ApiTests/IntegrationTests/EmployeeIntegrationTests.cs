@@ -109,19 +109,221 @@ public class EmployeeIntegrationTests : IntegrationTest, IClassFixture<WebApplic
     }
 
     [Fact]
-    public async Task WhenAskedForAnEmployeePaycheck_ShouldCalculateAndReturnIt()
+    public async Task WhenAskedForAnEmployeePaychecksForNextYear_ShouldCalculateAndReturnThem()
     {
-        var response = await HttpClient.GetAsync("/api/v1/employees/1/paycheck?payDate=2023-09-24");
-        var expectedPaycheck = new Paycheck
+        var response = await HttpClient.GetAsync("/api/v1/employees/1/paychecks?nextPayDate=2023-01-13");
+        var expectedPaychecks = new List<Paycheck>
         {
-            PayDate = new DateTime(2023, 09, 24),
-            GrossAmount = 2900.81M,
-            BaseBenefitCost = 461.54M,
-            DependentsBenefitCost = 0,
-            LuxuryTax = 0,
-            OldPersonTax = 0
+            new Paycheck() {
+                PayDate = new DateTime(2023, 1, 13),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 1, 27),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 2, 10),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 2, 24),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 3, 10),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 3, 24),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 4, 7),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 4, 21),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 5, 5),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 5, 19),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 6, 2),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 6, 16),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 6, 30),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 7, 14),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 7, 28),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 8, 11),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 8, 25),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 9, 8),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 9, 22),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 10, 6),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 10, 20),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 11, 3),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 11, 17),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 12, 1),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 12, 15),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            },
+            new Paycheck() {
+                PayDate = new DateTime(2023, 12, 29),
+                GrossAmount = 2900.81M,
+                BaseBenefitCost = 461.54M,
+                DependentsBenefitCost = 0,
+                LuxuryTax = 0,
+                OldPersonTax = 0
+            }
         };
-        await response.ShouldReturn(HttpStatusCode.OK, expectedPaycheck);
+        await response.ShouldReturn(HttpStatusCode.OK, expectedPaychecks);
     }
 }
 

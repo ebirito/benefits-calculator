@@ -4,6 +4,7 @@ namespace Api.Services
 {
     public static class PaycheckCalculator
     {
+        private const int DaysBetweenPayDates = 14;
         private const int PaychecksPerYear = 26;
         private const decimal BenefitsBaseCostMonthly = 1000;
         private const decimal BenefitsPerDependentCostMonthly = 600;
@@ -11,6 +12,11 @@ namespace Api.Services
         private const decimal LuxuryTaxPercentageOfYearlySalary = 2;
         private const int OldPersonTaxLimitYears = 50;
         private const decimal OldPersonTaxMonthly = 200;
+
+        public static List<Paycheck> CalculatePaychecksForNextYear(Employee employee, DateTime nextPayDate)
+        {
+            return PaydateCalculator.CalculatePaydates(nextPayDate, PaychecksPerYear, DaysBetweenPayDates).Select(payDate => CalculatePaycheck(employee, payDate)).ToList();
+        }
 
         public static Paycheck CalculatePaycheck(Employee employee, DateTime payDate)
         {

@@ -52,9 +52,9 @@ public class EmployeesController : ControllerBase
         return result;
     }
 
-    [SwaggerOperation(Summary = "Get paycheck for employee for a given pay date")]
-    [HttpGet("{id}/paycheck")]
-    public async Task<ActionResult<ApiResponse<Paycheck>>> GetPaycheck(int id, DateTime payDate)
+    [SwaggerOperation(Summary = "Calculates paychecks for employee for a year, given the next pay date")]
+    [HttpGet("{id}/paychecks")]
+    public async Task<ActionResult<ApiResponse<List<Paycheck>>>> GetPaychecksForNextYear(int id, DateTime nextPayDate)
     {
         var employee = this.employeeRepository.GetById(id);
         if (employee == null)
@@ -62,9 +62,9 @@ public class EmployeesController : ControllerBase
             return NotFound();
         }
 
-        return new ApiResponse<Paycheck>
+        return new ApiResponse<List<Paycheck>>
         {
-            Data = PaycheckCalculator.CalculatePaycheck(employee, payDate),
+            Data = PaycheckCalculator.CalculatePaychecksForNextYear(employee, nextPayDate),
             Success = true
         };
     }
